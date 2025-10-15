@@ -65,10 +65,10 @@ data "aws_iam_policy_document" "region_restriction" {
     effect    = local.effect
 
     condition {
-      test = "StringNotEquals"
-      variable = "aws:RequestedRegion"
-      values = local.allowed_regions
-    } 
+      test     = "StringNotEquals"
+      variable = "aws:Region"
+      values   = local.allowed_regions
+    }
   }
 }
 
@@ -88,13 +88,27 @@ data "aws_iam_policy_document" "protect_critical_services" {
       "guardduty:UpdateDetector",
       "securityhub:DisableSecurityHub",
       "securityhub:DeleteInvitations",
-      "securityhub:DissassociateFromMasterAccount",
+      "securityhub:DisassociateFromMasterAccount",
       "cloudwatch:DeleteLogGroup",
       "cloudwatch:DeleteAlarms",
       "cloudwatch:PutMetricFilter"
     ]
 
     resources = ["*"]
-    effect = local.effect
+    effect    = local.effect
   }
+}
+
+data "aws_iam_policy_document" "combined_guardrails" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.tag_enforcement.json,
+    data.aws_iam_policy_document.region_restriction.json,
+    data.aws_iam_policy_document.protect_critical_services.json
+  ]
+}
+
+resource "aws_iam_policy" "baseline_guardrail" {
+  name        = "${local.policy_prefix}baseline"
+  description = "Centralized governance guardrail policy"
+  policy      = data.aws_iam_policy_document.combined_guardrails.json
 }

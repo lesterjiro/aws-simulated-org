@@ -26,5 +26,15 @@ locals {
         environment = "prod"
       })
     }
+
+
+    audit = {
+      name       = "audit"
+      env        = "audit"
+      account_id = "2025004"
+      tags = merge(local.common_tags, {
+        environment = "audit"
+      })
+    }
   }
 }

@@ -39,9 +39,3 @@ locals {
 
   active_budget_limit = var.budget_limit[var.env]
 }
-
-variable "iam_boundary_policy_name" {
-  description = "Refers to an IAM permission boundary policy"
-  type        = string
-  default     = "SimulatedBoundaryPolicy"
-}
