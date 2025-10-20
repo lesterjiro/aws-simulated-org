@@ -1,39 +1,42 @@
-module "root_account" {
-  source       = "../modules/terraform-aws-accounts"
-  account_name = "root"
-  account_env  = var.env_map["root"]
-  account_id   = "2025001"
-  aws_region   = var.aws_region
-  project_name = var.project_name
-  common_tags  = local.common_tags
+locals {
+  accounts = {
+    root = {
+      name       = "root"
+      env        = "root"
+      account_id = "2025001"
+    }
+
+    dev = {
+      name       = "dev"
+      env        = "development"
+      account_id = "2025002"
+    }
+
+    prod = {
+      name       = "prod"
+      env        = "production"
+      account_id = "2025003"
+    }
+
+    audit = {
+      name       = "audit"
+      env        = "audit"
+      account_id = "2025004"
+    }
+  }
 }
 
-module "dev_account" {
+module "accounts" {
   source       = "../modules/terraform-aws-accounts"
-  account_name = "dev"
-  account_env  = var.env_map["dev"]
-  account_id   = "2025002"
+  for_each     = local.accounts
+
+  account_name = each.value.name
+  account_env  = each.value.env
+  account_id   = each.value.account_id
   aws_region   = var.aws_region
   project_name = var.project_name
-  common_tags  = local.common_tags
+  common_tags  = merge(local.common_tags, {
+    environment = each.value.env
+  })
 }
 
-module "prod_account" {
-  source       = "../modules/terraform-aws-accounts"
-  account_name = "prod"
-  account_env  = var.env_map["prod"]
-  account_id   = "2025003"
-  aws_region   = var.aws_region
-  project_name = var.project_name
-  common_tags  = local.common_tags
-}
-
-module "audit_account" {
-  source       = "../modules/terraform-aws-accounts"
-  account_name = "audit"
-  account_env  = var.env_map["audit"]
-  account_id   = "2025004"
-  aws_region   = var.aws_region
-  project_name = var.project_name
-  common_tags  = local.common_tags
-}

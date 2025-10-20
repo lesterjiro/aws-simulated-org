@@ -21,8 +21,8 @@ variable "env_map" {
   type        = map(string)
   default = {
     root = "root"
-    dev  = "dev"
-    prod = "prod"
+    dev  = "development"
+    prod = "production"
   }
 }
 

@@ -1,9 +1,9 @@
 variable "account_name" {
   description = "Human-readable name of the account (e.g dev, prod, root, audit)"
-  type        = string 
+  type        = string
 }
 
-varibale "account_env" {
+variable "account_env" {
   description = "Environment label for this account (e.g dev, prod, root)"
   type        = string
 }
