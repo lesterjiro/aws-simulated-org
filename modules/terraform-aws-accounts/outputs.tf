@@ -1,6 +1,7 @@
 output "account" {
   description = "Simulated AWS account metadata"
   value       = local.account
+}
 
 output "account_name" {
   description = "The name of the simulated account"
@@ -30,5 +31,4 @@ output "tags" {
 output "account" {
   description = "Full account object for easier reference"
   value       = local.account
-}
 }
