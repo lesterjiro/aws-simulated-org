@@ -16,6 +16,11 @@ It provides account-level settings, environment metadata, and consistent tagging
 
 ## Outputs
 
-| Name    | Description                                                |
-| ------- | ---------------------------------------------------------- |
-| account | Account metadata including id, name, env, region, and tags |
+| Name           | Description                                                |
+| -------------- | ---------------------------------------------------------- |
+| account        | Account metadata including id, name, env, region, and tags |
+| account_name   | The name of the simulated account                          |
+| account_env    | The environment label (e.g. dev, prod, root, audit)        |
+| account_id     | The unique simulated account ID                            |
+| region         | AWS region used by this account                            |
+| tags           | Merged tags applied to this simulated account              |
