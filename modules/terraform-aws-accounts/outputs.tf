@@ -27,8 +27,3 @@ output "tags" {
   description = "Merged tags applied to this simulated account"
   value       = local.account.tags
 }
-
-output "account" {
-  description = "Full account object for easier reference"
-  value       = local.account
-}
