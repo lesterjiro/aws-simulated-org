@@ -16,16 +16,6 @@ variable "env" {
   default     = "dev"
 }
 
-variable "env_map" {
-  description = "Map environment labels for reference"
-  type        = map(string)
-  default = {
-    root = "root"
-    dev  = "development"
-    prod = "production"
-  }
-}
-
 variable "budget_limits" {
   description = "Budget limit per environment (USD per month)"
   type        = map(number)
@@ -39,9 +29,9 @@ variable "budget_limits" {
 variable "notification_emails" {
   description = "Environment-specific notification emails"
   type        = map(string)
-  default     = {
-    dev   = "dev-team@example.com"
-    prod  = "prod-team@example.com"
+  default = {
+    dev  = "dev-team@example.com"
+    prod = "prod-team@example.com"
   }
 }
 
@@ -72,7 +62,7 @@ variable "tag_values" {
 variable "use_anomaly_detection" {
   description = "Toggle that decides whether to create AWS Cost Anomaly Detection resources"
   type        = bool
-  default     = false # true enables anomaly monitoring; false disables it for faster testing 
+  default     = false # true enables anomaly monitoring; false disables it for faster testing
 }
 
 variable "anomaly_threshold" {
