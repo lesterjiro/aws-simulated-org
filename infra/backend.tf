@@ -1,4 +1,4 @@
-terrform {
+terraform {
   backend "s3" {
     bucket       = "aws-simulated-org-tfstate"
     key          = "infra/dev/terraform.tfstate"
