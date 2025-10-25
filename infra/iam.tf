@@ -28,7 +28,7 @@ locals {
   }
 
   # Permission boundary policy (guardrail)
-  permissions_boundary_arn = aws_iam_policy.baseline_guardrail.arn
+  permissions_boundary_arn = module.guardrails.policy_arn
 
   # Defines IAM policies used to manage permissions across all environments.
   managed_policies = {

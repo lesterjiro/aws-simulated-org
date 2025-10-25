@@ -1,6 +1,6 @@
 locals {
   tags = merge(
-    var.common_tags, 
+    var.common_tags,
     {
       project      = var.project_name,
       account_name = var.account_name,
@@ -26,6 +26,6 @@ resource "null_resource" "account" {
     env        = local.account.env
     account_id = local.account.account_id
     region     = local.account.region
-    tags       = local.tags
+    tags       = jsonencode(local.tags)
   }
 }

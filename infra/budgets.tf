@@ -1,14 +1,8 @@
 locals {
   environments = {
-    dev = {
-      tag_value    = "Dev"
-      limit_amount = var.budget_limits["dev"]
-      threshold    = var.threshold_percent
-    }
-
-    prod = {
-      tag_value    = "Prod"
-      limit_amount = var.budget_limits["prod"]
+    (var.env) = {
+      tag_value    = title(var.env)
+      limit_amount = var.budget_limits[var.env]
       threshold    = var.threshold_percent
     }
   }
@@ -22,7 +16,7 @@ resource "aws_budgets_budget" "monthly_budget_env" {
   time_period_start = "2025-10-01_00:00"
   time_period_end   = "2087-06-15_00:00"
   time_unit         = var.time_unit
-  limit_amount      = each.value.limit_amount
+  limit_amount      = lookup(var.budget_limits, each.key, 0)
   limit_unit        = "USD"
 
   cost_filter {
@@ -46,7 +40,7 @@ resource "aws_ce_anomaly_monitor" "org_cost_monitor" {
 }
 
 resource "aws_ce_anomaly_subscription" "org_cost_alert" {
-  name      = "org-cost-alert"
+  name      = "${var.env}-org-cost-alert"
   frequency = "DAILY"
 
   monitor_arn_list = [
@@ -63,6 +57,6 @@ resource "aws_ce_anomaly_subscription" "org_cost_alert" {
 
   subscriber {
     type    = "EMAIL"
-    address = var.notification_emails[0]
+    address = var.notification_emails[var.env]
   }
 }

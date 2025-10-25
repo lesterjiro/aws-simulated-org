@@ -71,12 +71,18 @@ variable "anomaly_threshold" {
   default     = 20
 }
 
+variable "common_tags" {
+  description = "Optional map of common tags that can override defaults"
+  type        = map(string)
+  default     = {}
+}
+
 locals {
-  common_tags = {
+  common_tags = merge({
     owner       = "lester"
     project     = "aws-simulated-org"
     environment = var.env
-  }
+  }, var.common_tags)
 
   active_budget_limit = var.budget_limits[var.env]
 }

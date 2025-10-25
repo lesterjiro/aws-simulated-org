@@ -46,7 +46,7 @@ resource "aws_iam_role_policy" "cross_env_access" {
 }
 
 resource "aws_iam_role_policy_attachment" "managed_policies" {
-  for_each   = { for k, v in var.var.policy_role_map : k => v if v == var.role_name }
+  for_each   = { for k, v in var.policy_role_map : k => v if v == var.role_name }
   role       = aws_iam_role.env_role.name
   policy_arn = var.managed_policy_arns[each.key]
 }
