@@ -28,7 +28,6 @@ output "iam_roles" {
       role_name                = mod.role_name
       role_arn                 = mod.role_arn
       cross_env_policy_name    = mod.cross_env_policy_name
-      cross_env_role_arn       = mod.cross_env_role_arn
       managed_policy_resources = mod.managed_policy_resources
       tags                     = mod.role_tags
     }
