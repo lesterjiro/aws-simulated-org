@@ -8,11 +8,6 @@ variable "account_env" {
   type        = string
 }
 
-variable "account_id" {
-  description = "Unique simulated account ID (used for tagging or reference)"
-  type        = string
-}
-
 variable "aws_region" {
   description = "AWS region for resources"
   type        = string

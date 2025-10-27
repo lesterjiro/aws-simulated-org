@@ -5,28 +5,31 @@ resource "aws_iam_role" "env_role" {
   tags                 = var.tags
 }
 
-
 data "aws_iam_policy_document" "role_trust" {
   statement {
     actions = ["sts:AssumeRole"]
     effect  = "Allow"
 
-    principals {
-      type = "AWS"
-      identifiers = [
-        for r in lookup(var.trust_by, var.role_name, []) :
-        "arn:aws:iam::${var.account_id}:role/${r}"
-      ]
+    dynamic "principals" {
+      for_each = [1]
+      content {
+        type = "AWS"
+        identifiers = length(lookup(var.trust_by, var.role_name, [])) > 0 ? [
+          for r in lookup(var.trust_by, var.role_name, []) :
+          "arn:aws:iam::${var.account_id}:role/${r}"
+          ] : [
+          "arn:aws:iam::${var.account_id}:root"
+        ]
+      }
     }
   }
 }
-
 
 data "aws_iam_policy_document" "cross_env_access" {
   count = contains(keys(var.trust_map), var.role_name) ? 1 : 0
 
   statement {
-    sid     = "allow-assume-roles-${var.role_name}"
+    sid     = "AllowAssumeRole${title(var.role_name)}"
     actions = ["sts:AssumeRole"]
     effect  = "Allow"
     resources = [

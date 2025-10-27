@@ -13,11 +13,6 @@ output "account_env" {
   value       = local.account.env
 }
 
-output "account_id" {
-  description = "The unique simulated account ID"
-  value       = local.account.account_id
-}
-
 output "region" {
   description = "AWS region used by this account"
   value       = local.account.region

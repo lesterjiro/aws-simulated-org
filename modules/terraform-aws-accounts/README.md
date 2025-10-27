@@ -9,7 +9,6 @@ It provides account-level settings, environment metadata, and consistent tagging
 | ------------ | --------------------------------------------------------- | ----------- | -------- |
 | account_name | Name of the account (e.g. dev, prod, root, audit)         | string      | yes      |
 | account_env  | Environment label for this account (e.g. dev, prod, root) | string      | yes      |
-| account_id   | Simulated account ID, used for tagging or references      | string      | yes      |
 | aws_region   | AWS region for resources                                  | string      | yes      |
 | project_name | Project name for consistent naming and tagging            | string      | yes      |
 | common_tags  | Base tags merged with environment-specific tags           | map(string) | yes      |
@@ -21,6 +20,5 @@ It provides account-level settings, environment metadata, and consistent tagging
 | account        | Account metadata including id, name, env, region, and tags |
 | account_name   | The name of the simulated account                          |
 | account_env    | The environment label (e.g. dev, prod, root, audit)        |
-| account_id     | The unique simulated account ID                            |
 | region         | AWS region used by this account                            |
 | tags           | Merged tags applied to this simulated account              |

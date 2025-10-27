@@ -2,11 +2,10 @@ output "accounts" {
   description = "Metadata for all simulated AWS accounts."
   value = {
     for k, mod in module.accounts : k => {
-      name       = mod.account_name
-      env        = mod.account_env
-      account_id = mod.account_id
-      region     = var.aws_region
-      tags       = mod.tags
+      name   = mod.account_name
+      env    = mod.account_env
+      region = var.aws_region
+      tags   = mod.tags
     }
   }
 }

@@ -47,6 +47,8 @@ locals {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "managed_policies" {
   for_each = local.managed_policies
   statement {
@@ -79,6 +81,6 @@ module "iam_cross_account" {
   managed_policy_arns      = local.managed_policy_arns
   policy_role_map          = local.policy_role_map
   permissions_boundary_arn = local.permissions_boundary_arn
-  account_id               = each.value.account_id
+  account_id               = data.aws_caller_identity.current.account_id
   tags                     = merge(local.common_tags, { environment = each.value.env })
 }

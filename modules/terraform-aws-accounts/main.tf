@@ -10,11 +10,10 @@ locals {
   )
 
   account = {
-    name       = var.account_name
-    env        = var.account_env
-    account_id = var.account_id
-    region     = var.aws_region
-    tags       = local.tags
+    name   = var.account_name
+    env    = var.account_env
+    region = var.aws_region
+    tags   = local.tags
   }
 }
 
@@ -22,10 +21,9 @@ locals {
 # (In a real org you'd use aws_organizations_account, but it's a just a simulation this time)
 resource "null_resource" "account" {
   triggers = {
-    name       = local.account.name
-    env        = local.account.env
-    account_id = local.account.account_id
-    region     = local.account.region
-    tags       = jsonencode(local.tags)
+    name   = local.account.name
+    env    = local.account.env
+    region = local.account.region
+    tags   = jsonencode(local.tags)
   }
 }
