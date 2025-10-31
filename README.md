@@ -64,7 +64,7 @@ Key points:
 
 ## Pipeline Overview
 1. **Bootstrap:** Run the `bootstrap/` layer to create remote backend resources and initial guardrails.  
-2. **Infra Deployment:** Apply `infra/` layer in environment-specific workspaces (`dev` or `prod`).  
+2. **Infra Deployment:** Apply the infra/ layer using environment-specific variable files (dev.tfvars or prod.tfvars). 
 3. **Module Usage:** Terraform modules manage accounts, guardrails, and IAM roles consistently.  
 4. **Remote State:** All Terraform states are stored in S3 with state locking to simulate team usage.
 
