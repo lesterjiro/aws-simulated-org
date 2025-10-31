@@ -52,8 +52,7 @@ Key points:
 - **Environment Workspaces:** Separate `Dev` and `Prod` workspaces to isolate state while still using a single AWS account.  
 
 ## Key AWS Services
-- **AWS Organizations:** Simulated OUs for Root, Dev, and Prod environments.  
-- **IAM:** Policies, permission boundaries, and cross-account role assumption.  
+- **IAM:** Policies, permission boundaries, and cross-environment role simulation.
 - **S3 + state locking:** Remote Terraform state storage with state locking.  
 - **AWS Budgets & Cost Anomaly Detection:** Enforce simulated billing visibility and control.  
 
