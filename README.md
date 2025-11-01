@@ -56,7 +56,7 @@ aws-simulated-org/
 ```
 
 Key points:
-- **Bootstrap Layer:** Sets up S3 bucket for remote Terraform state with locking and initial IAM policies.
+- **Bootstrap Layer:** Sets up S3 bucket for remote Terraform state with locking.
 - **Infra Layer:** Simulates accounts, defines budgets and cost anomaly detection, configures IAM roles and guardrails.
 - **Modules:** Reusable Terraform components for accounts, IAM cross-account roles, and guardrails.
 - **Environment Workspaces:** Separate `Dev` and `Prod` workspaces to isolate state while still using a single AWS account.
