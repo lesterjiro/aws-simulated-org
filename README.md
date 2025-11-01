@@ -14,7 +14,7 @@ The project uses a layered structure:
 ```
 aws-simulated-org/
 ├── bootstrap/                       # Bootstrapping layer (one-time setup)
-│   ├── main.tf                      # Creates backend S3 bucket and org-level guardrails
+│   ├── main.tf                      # Creates backend S3 bucket
 │   ├── variables.tf                 # Inputs (region, account aliases, etc.)
 │   ├── outputs.tf                   # Exports backend info for infra/
 │   ├── providers.tf                 # Local provider config (no remote backend yet)
