@@ -10,39 +10,46 @@ The project uses a layered structure:
 
 ```
 aws-simulated-org/
-├── bootstrap/                 # Bootstrapping layer (one-time setup)
-│   ├── main.tf                # Creates backend bucket, org root guardrails
-│   ├── variables.tf           # Inputs (region, account aliases, etc.)
-│   ├── outputs.tf             # Exports S3 info for infra/
-│   ├── providers.tf           # Providers with minimal config (no remote backend yet)
-│   ├── backend_override.tf    # Local state backend during bootstrap
+├── bootstrap/                       # Bootstrapping layer (one-time setup)
+│   ├── main.tf                      # Creates backend S3 bucket and org-level guardrails
+│   ├── variables.tf                 # Inputs (region, account aliases, etc.)
+│   ├── outputs.tf                   # Exports backend info for infra/
+│   ├── providers.tf                 # Local provider config (no remote backend yet)
+│   ├── backend_override.tf          # Temporary local backend during bootstrap
 │   └── terraform.tfvars.example
 │
-├── infra/                     # Core infra layer (Org + accounts + IAM + budgets)
-│   ├── main.tf                # Calls submodules (accounts, SCPs, IAM, budgets)
-│   ├── variables.tf           # Shared input definitions
-│   ├── outputs.tf             # Shared outputs
+├── infra/                           # Core infrastructure (Org simulation)
+│   ├── main.tf                      # Empty or high-level orchestration (optional)
+│   ├── providers.tf                 # Uses remote backend (S3 from bootstrap)
+│   ├── variables.tf                 # Shared input definitions
+│   ├── outputs.tf                   # Shared outputs (if needed)
 │   ├── terraform.tfvars.example
-│   ├── accounts.tf            # AWS Org + child accounts (Dev, Prod simulation)
-│   ├── guardrails.tf           # IAM deny policies, boundaries
-│   ├── budgets.tf             # Budgets & cost anomaly detection
-│   ├── iam.tf                 # Cross-account IAM roles
-│   ├── providers.tf           # Uses remote backend (bootstrap S3 + state locking)
-│   └── env/                   # Environment-specific configs
+│   ├── accounts.tf                  # Calls terraform-aws-accounts module
+│   ├── iam.tf                       # Calls terraform-aws-iam-cross-env module
+│   ├── guardrails.tf                # Calls terraform-aws-guardrails module
+│   ├── budgets.tf                   # (Optional) Cost monitoring / budgets module
+│   └── env/                         # Environment-specific configs
 │       ├── dev.tfvars
 │       └── prod.tfvars
-│       └── prod.tfvars
 │
-├── modules/                   # Reusable Terraform modules
-│   ├── account/               # AWS Account creation (simulated)
-│   │   └── main.tf
-│   ├── guardrails/            # IAM deny policies, boundaries
-│   │   └── main.tf
-│   └── iam-cross-account/     # IAM assume-role setup
-│       └── main.tf
+├── modules/                         # Reusable Terraform modules
+│   ├── terraform-aws-accounts/      # Simulated AWS accounts (root, audit, dev, prod)
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   ├── terraform-aws-guardrails/    # IAM deny policies, permission boundaries
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── README.md
+│   └── terraform-aws-iam-cross-env/ # Cross-environment IAM assume-role setup
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       └── README.md
 │
-└── README.md                  # Project documentation & workflow
-
+└── README.md                        # Project overview, usage, and workflow
 ```
 
 Key points:  
